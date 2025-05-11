@@ -2,17 +2,19 @@
 
 import random
 
-from warhammer_first import WarhammerUnit
+from profiles.warhammer_first import WarhammerUnit
 
 def warhammer_to_hit_chart(attackers_weapon_skill, defenders_weapon_skill):
+    value = ""
     if attackers_weapon_skill >= defenders_weapon_skill * 2 + 1:
-        return '2+'
+        value = '2+'
     elif attackers_weapon_skill > defenders_weapon_skill:
-        return '3+'
+        value = '3+'
     elif defenders_weapon_skill >= attackers_weapon_skill * 2 + 1:
-        return '5+'
+        value = '5+'
     else:
-        return '4+'
+        value = '4+'
+    return value
 
 def calc_hit(attackers_weapon_skill, defenders_weapon_skill, required_roll=-1, log=False):
     # Calculate the required roll to hit
@@ -31,20 +33,25 @@ def calc_hit(attackers_weapon_skill, defenders_weapon_skill, required_roll=-1, l
         print(f"Rolled: {roll}")
 
     # Check if the roll is successful
+    outcome = ""
     if roll >= required_roll_value:
-        return "Hit"
+        outcome = "Hit"
     else:
-        return "Miss"
+        outcome = "Miss"
+    return outcome, roll
 
-def multiple_hits(attackers_weapon_skill, defenders_weapon_skill, num_attacks):
+def multiple_hits(attackers_weapon_skill, defenders_weapon_skill, num_attacks, show_results=True):
     successful_hits = 0
     required_roll = warhammer_to_hit_chart(attackers_weapon_skill, defenders_weapon_skill)
     print(f"Attacker's weapon skill: {attackers_weapon_skill}")
     print(f"Defender's weapon skill: {defenders_weapon_skill}")
     print(f"Required to hit: {required_roll}")
 
+    roll_list = []
+
     for _ in range(num_attacks):
-        result = calc_hit(attackers_weapon_skill, defenders_weapon_skill, required_roll)
+        result, dice_value = calc_hit(attackers_weapon_skill, defenders_weapon_skill, required_roll)
+        roll_list.append(dice_value)
         if result == "Hit":
             successful_hits += 1
 
@@ -53,7 +60,7 @@ def multiple_hits(attackers_weapon_skill, defenders_weapon_skill, num_attacks):
     print(f"Number of successful hits: {successful_hits}\n")
     # print(f"Hit percentage: {hit_percentage}%")
 
-    return successful_hits  
+    return successful_hits, roll_list  
 
 def warhammer_to_wound_chart(attacker_strength, defender_toughness):
     difference = attacker_strength - defender_toughness
@@ -185,7 +192,7 @@ def attack_to_hit(attacker_unit, defender_unit, num_attacks=-1):
         num_attacks = attacker_unit.total_attacks()
     attackers_weapon_skill = attacker_unit.character_profile['weapon_skill']
     defenders_weapon_skill = defender_unit.character_profile['weapon_skill']
-    return multiple_hits(attackers_weapon_skill, defenders_weapon_skill, num_attacks)
+    return multiple_hits(attackers_weapon_skill, defenders_weapon_skill, num_attacks)[0]
 
 def attack_to_wound(attacker_unit, defender_unit, num_attacks=-1):
     if num_attacks == 0:

@@ -12,7 +12,7 @@ with open('profiles/white_lions.json', 'r') as f:
 with open('profiles/spearmen.json', 'r') as f:
     sp_data = json.load(f)
 
-from warhammer_first import WarhammerUnit
+from profiles.warhammer_first import WarhammerUnit
 from utils import multiple_wounds, attack_to_wound, combat
 
 
