@@ -1,3 +1,5 @@
+# poetry run streamlit run app.py
+
 import streamlit as st
 from components.inputs import render_inputs
 from components.outputs import render_outputs
