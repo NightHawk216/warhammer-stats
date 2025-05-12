@@ -40,12 +40,15 @@ def calc_hit(attackers_weapon_skill, defenders_weapon_skill, required_roll=-1, l
         outcome = "Miss"
     return outcome, roll
 
-def multiple_hits(attackers_weapon_skill, defenders_weapon_skill, num_attacks, show_results=True):
+def multiple_hits(attackers_weapon_skill, defenders_weapon_skill, num_attacks, show_results=True, log=False):
     successful_hits = 0
     required_roll = warhammer_to_hit_chart(attackers_weapon_skill, defenders_weapon_skill)
-    print(f"Attacker's weapon skill: {attackers_weapon_skill}")
-    print(f"Defender's weapon skill: {defenders_weapon_skill}")
-    print(f"Required to hit: {required_roll}")
+
+    # Print out the details
+    if log:
+        print(f"Attacker's weapon skill: {attackers_weapon_skill}")
+        print(f"Defender's weapon skill: {defenders_weapon_skill}")
+        print(f"Required to hit: {required_roll}")
 
     roll_list = []
 
@@ -56,8 +59,10 @@ def multiple_hits(attackers_weapon_skill, defenders_weapon_skill, num_attacks, s
             successful_hits += 1
 
     hit_percentage = (successful_hits / num_attacks) * 100
-
-    print(f"Number of successful hits: {successful_hits}\n")
+    
+    # Print out the details
+    if log:
+        print(f"Number of successful hits: {successful_hits}\n")
     # print(f"Hit percentage: {hit_percentage}%")
 
     return successful_hits, roll_list  

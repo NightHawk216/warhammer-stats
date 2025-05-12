@@ -7,7 +7,7 @@ def run_simulation_logic(inputs):
     if 'last_simulation_results' not in st.session_state:
         st.session_state['last_simulation_results'] = None
         
-    number_of_runs = st.number_input("Number of Runs", min_value=1, max_value=10000, value=200, step=1)
+    number_of_runs = st.number_input("Number of Runs", min_value=1, max_value=10000, value=20, step=1)
 
     attackers_weapon_skill = inputs['attackers_weapon_skill']
     defenders_weapon_skill = inputs['defenders_weapon_skill']

@@ -14,7 +14,7 @@ def warhammer_to_hit_chart(attackers_weapon_skill, defenders_weapon_skill):
 
 def render_inputs():
     show_dice_rolls = st.checkbox("Show Dice Rolls", value=True)
-    run_simulation = st.checkbox("Run Simulation", value=True)
+    run_simulation = st.checkbox("Run Simulation", value=False)
     # Use Streamlit columns to place the first two number inputs on the same line
     col1, col2 = st.columns(2)
 
@@ -37,7 +37,7 @@ def render_inputs():
     with col1:
 
         # User input for number of attacks
-        number_of_attacks = st.number_input("Number of Attacks", min_value=1, max_value=20, value=10, step=1)
+        number_of_attacks = st.number_input("Number of Attacks", min_value=1, max_value=20, value=6, step=1)
         
 
     return {
