@@ -15,7 +15,7 @@ build:
     - pip install matplotlib
     - pip install plotly
     - poetry config virtualenvs.create false
-    - poetry install --without dev
+    # - poetry install --no-dev
     - mkdir -p public
     - streamlit run streamlit/app.py --server.port=8501 --server.headless=true &
     - sleep 5  # Allow Streamlit to start
