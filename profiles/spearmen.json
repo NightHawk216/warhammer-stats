@@ -1,0 +1,68 @@
+{
+  "unit": "Spearmen",
+  "faction": "High Elves",
+  "unit_type": "Infantry",
+  "description": "Elite Spearmen...",
+  "character_profile": {
+    "movement": 5,
+    "weapon_skill": 4,
+    "ballistic_skill": 3,
+    "strength": 3,
+    "toughness": 3,
+    "initiative": 4,
+    "attacks": 1,
+    "leadership": 8
+  },
+  "profile_extras": {
+    "Champion": {
+      "attacks": 1
+    }
+  },
+  "abilities": [
+    {
+      "name": "Blade Mastery",
+      "description": "Swordmasters have a chance to parry incoming attacks...",
+      "effect": "..."
+    },
+    {
+      "name": "Martial Prowess",
+      "description": "Swordmasters are trained to fight in close combat...",
+      "effect": "..."
+    }
+  ],
+  "weapons": {
+    "name": "Spears",
+    "strength": 0
+  },
+  "unit_category": {
+    "wounds": 1,
+    "save": 5,
+    "points_cost": 14,
+    "models_per_unit": 10,
+    "models_per_row": 5
+  },
+  "command": {
+    "Musician": {
+      "included": false,
+      "points": 10
+    },
+    "Champion": {
+      "included": false,
+      "points": 10,
+      "magical_items_allowance": 25,
+      "magical_item_chosen": "Sword of Might",
+      "magical_item_cost": 20
+    },
+    "Standard Bearer": {
+      "included": false,
+      "points": 10,
+      "banner_magical_allowance": 50,
+      "banner_chosen": "Banner of Ellyrion",
+      "banner_cost": 45
+    }
+  },
+  "base_size": {
+    "width": 25,
+    "depth": 25
+  }
+}
