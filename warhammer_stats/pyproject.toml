@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "warhammer-stats"
+version = "0.1.0"
+description = ""
+authors = ["Micah Pearce <micah.r.pearce@gmail.com>"]
+readme = "README.md"
+packages = [{include = "warhammer_stats"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
