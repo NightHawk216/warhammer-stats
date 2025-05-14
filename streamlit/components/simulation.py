@@ -9,9 +9,9 @@ def run_simulation_logic(inputs):
         
     number_of_runs = st.number_input("Number of Runs", min_value=1, max_value=10000, value=20, step=1)
 
-    attackers_weapon_skill = inputs['attackers_weapon_skill']
+    attacker_stats = inputs['attacker_stats']
     defenders_weapon_skill = inputs['defenders_weapon_skill']
-    number_of_attacks = inputs['number_of_attacks']
+    total_number_of_attacks = inputs['total_number_of_attacks']
     to_hit_chart = inputs['to_hit_chart']
     show_dice_rolls = inputs['show_dice_rolls']
 
@@ -19,11 +19,23 @@ def run_simulation_logic(inputs):
         import matplotlib.pyplot as plt
         import numpy as np
 
+        total_hits = []
+        total_roll_list = []
+
         # Run the simulation
         results = []
         for _ in range(number_of_runs):
-            num_hits, _ = multiple_hits(attackers_weapon_skill, defenders_weapon_skill, number_of_attacks)
-            results.append(num_hits)
+
+            total_hits = 0
+
+            for attacker in inputs['attacker_stats']:
+                attackers_weapon_skill = attacker['attacker_weapon_skill']
+                number_of_attacks = attacker['number_of_attacks']
+                if number_of_attacks:
+                    num_hits, _ = multiple_hits(attackers_weapon_skill, defenders_weapon_skill, number_of_attacks)
+                    total_hits += num_hits
+
+            results.append(total_hits)
 
         show_labels = True
         if show_labels:
