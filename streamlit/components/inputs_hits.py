@@ -16,7 +16,7 @@ def render_hit_inputs():
     show_dice_rolls = st.checkbox("Show Dice Rolls", value=True, key="show_dice_rolls_hits")
 
     # Add a toggle button to show/hide the second row
-    show_second_attacker = st.checkbox("Add Second Attacker's Weapon Skill", value=False, key="add_weapon_skill_hits")
+    show_second_attacker = st.checkbox("Add Second Attacker (think champion, hero, or lord)", value=False, key="add_weapon_skill_hits")
     
     run_simulation = st.checkbox("Run Simulation", value=False, key="run_simulation_hits")
 
@@ -33,12 +33,12 @@ def render_hit_inputs():
 
     # Render the second row based on the toggle state
     if show_second_attacker:
-        st.markdown(f"###### Second Attacker (think champion, hero, or lord)")
+        st.markdown(f"###### Second Attacker")
         col1, col2 = st.columns([1, 1])
         with col1:
             second_weapon_skill = st.number_input("Attacker's Weapon Skill", min_value=1, max_value=10, value=5, step=1, key="second_weapon_skill")
         with col2:
-            second_number_of_attacks = st.number_input("Number of Attacks", min_value=1, max_value=100, value=1, step=1, key="second_attacks")
+            second_number_of_attacks = st.number_input("Number of Attacks", min_value=1, max_value=100, value=3, step=1, key="second_attacks")
             
     else:
         second_weapon_skill = 0
