@@ -64,18 +64,20 @@ def multiple_hits(attackers_weapon_skill, defenders_weapon_skill, num_attacks, s
 
 def warhammer_to_wound_chart(attacker_strength, defender_toughness):
     difference = attacker_strength - defender_toughness
+    value = ""
     if difference == -1:
-        return '5+'
+        value = '5+'
     elif difference == 0:
-        return '4+'
+        value = '4+'
     elif difference == 1:
-        return '3+'
+        value = '3+'
     elif difference >= 2:
-        return '2+'
+        value = '2+'
     elif difference <= -2 and difference >= -5:
-        return '6+'
+        value = '6+'
     else:
-        return 'Impossible'
+        value = 'Impossible'
+    return value
 
 def calc_wound(attacker_strength, defender_toughness, required_roll=-1, log=False):
     # Calculate the required roll to wound
@@ -94,10 +96,12 @@ def calc_wound(attacker_strength, defender_toughness, required_roll=-1, log=Fals
         print(f"Rolled: {roll}")
 
     # Check if the roll is successful
+    values = ""
     if roll >= required_roll_value:
-        return "Wounded"
+        value = "Wounded"
     else:
-        return "Does not wound"
+        value = "Does not wound"
+    return value
 
 def multiple_wounds(attacker_strength, defender_toughness, num_attacks):
     successful_hits = 0
