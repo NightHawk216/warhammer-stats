@@ -16,6 +16,7 @@ def warhammer_to_wound_chart(attacker_strength, defender_toughness):
     else:
         value = 'Impossible'
     return value
+    
 
 def render_wounds_inputs():
     show_dice_rolls = st.checkbox("Show Dice Rolls", value=True, key="show_dice_rolls_wounds")
@@ -38,7 +39,7 @@ def render_wounds_inputs():
 
     # Render the second row based on the toggle state
     if show_second_attacker:
-        st.markdown(f"###### Second Attacker")
+        st.markdown(f"###### Second Attacker (think champion, hero, or lord)")
         col1, col2 = st.columns([1, 1])
         with col1:
             second_weapon_skill = st.number_input("Attacker's Strength", min_value=1, max_value=10, value=5, step=1, key="second_strength")
@@ -79,4 +80,6 @@ def render_wounds_inputs():
         "defenders_stats": defenders_toughness,
         "total_number_of_dice_rolls": total_number_of_dice_rolls,
         "required_value_for_success_list": required_value_for_success_list,
+        "required_to_hit_list": [],
+        "required_wound_list": [],
     }
