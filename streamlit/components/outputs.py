@@ -7,7 +7,7 @@ def render_outputs(inputs, the_type):
 
     attacker_stats = inputs['attacker_stats']
     defenders_stats = inputs['defenders_stats']
-    required_value_for_success = inputs['required_value_for_success']
+    required_value_for_success_list = inputs['required_value_for_success_list']
     show_dice_rolls = inputs['show_dice_rolls']
     the_type = the_type
 
@@ -42,7 +42,7 @@ def render_outputs(inputs, the_type):
                 if show_dice_rolls:
                     roll_list.sort(reverse=False)
                     # Highlight dice rolls that are equal to or higher than the "required to hit" value
-                    required_to_hit_value = int(required_value_for_success[:-1])  # Extract the numeric value from the to-hit chart
+                    required_to_hit_value = int(required_value_for_success_list[idx][:-1])  # Extract the numeric value from the to-hit chart
                     highlighted_rolls = [
                         f"<span style='color:green; font-weight:bold;'>{roll}</span>" if roll >= required_to_hit_value else str(roll)
                         for roll in roll_list

@@ -32,7 +32,7 @@ elif chosen_id == "tab2":
     the_type = "Wounds"
 
 else:
-    inputs = {'run_simulation': False, 'show_dice_rolls': False, 'attacker_stats': [], 'defenders_stats': [], 'required_value_for_success': 0}
+    inputs = {'run_simulation': False, 'show_dice_rolls': False, 'attacker_stats': [], 'defenders_stats': [], 'required_value_for_success': 0, 'required_value_for_success_list': []}
     the_type = None
 
 
@@ -41,4 +41,6 @@ if inputs['run_simulation']:
     results = run_simulation_logic(inputs, the_type)
     # plot_results(results)
 else:
+    print(inputs)
+    print(the_type)
     render_outputs(inputs, the_type)

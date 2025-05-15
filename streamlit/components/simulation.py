@@ -12,7 +12,7 @@ def run_simulation_logic(inputs, the_type):
     attacker_stats = inputs['attacker_stats']
     defenders_stats = inputs['defenders_stats']
     total_number_of_dice_rolls = inputs['total_number_of_dice_rolls']
-    required_value_for_success = inputs['required_value_for_success']
+    required_value_for_success_list = inputs['required_value_for_success_list']
     show_dice_rolls = inputs['show_dice_rolls']
     the_type = the_type
 

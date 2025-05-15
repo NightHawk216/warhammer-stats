@@ -57,9 +57,14 @@ def render_hit_inputs():
     required_value_for_success = warhammer_to_hit_chart(attackers_weapon_skill, defenders_weapon_skill)
     st.markdown(f"**Main Attacker:** {required_value_for_success}")
 
+    required_value_for_success_list = []
+    required_value_for_success_list.append(required_value_for_success)
+
     if second_weapon_skill > 0:
         second_required_value_for_success = warhammer_to_hit_chart(second_weapon_skill, defenders_weapon_skill)
         st.markdown(f"**Second Attacker:** {second_required_value_for_success}")
+        required_value_for_success_list.append(second_required_value_for_success)
+    
 
     col1, col2 = st.columns(2)
 
@@ -69,5 +74,5 @@ def render_hit_inputs():
         "attacker_stats": attacker_stats,
         "defenders_stats": defenders_weapon_skill,
         "total_number_of_dice_rolls": total_number_of_dice_rolls,
-        "required_value_for_success": required_value_for_success,
+        "required_value_for_success_list": required_value_for_success_list,
     }

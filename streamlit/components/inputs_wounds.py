@@ -59,12 +59,16 @@ def render_wounds_inputs():
     defenders_toughness = st.number_input("Defender's Toughness", min_value=1, max_value=10, value=3, step=1, key="defender_toughness")
     
     st.markdown("### Wound Value Needed")
-    to_hit_chart = warhammer_to_wound_chart(attackers_weapon_skill, defenders_toughness)
-    st.markdown(f"**Main Attacker:** {to_hit_chart}")
+    required_value_for_success = warhammer_to_wound_chart(attackers_weapon_skill, defenders_toughness)
+    st.markdown(f"**Main Attacker:** {required_value_for_success}")
+
+    required_value_for_success_list = []
+    required_value_for_success_list.append(required_value_for_success)
 
     if second_weapon_skill > 0:
-        second_hit_chart = warhammer_to_wound_chart(second_weapon_skill, defenders_toughness)
-        st.markdown(f"**Second Attacker:** {second_hit_chart}")
+        second_required_value_for_success = warhammer_to_wound_chart(second_weapon_skill, defenders_toughness)
+        st.markdown(f"**Second Attacker:** {second_required_value_for_success}")
+        required_value_for_success_list.append(second_required_value_for_success)
 
     col1, col2 = st.columns(2)
 
@@ -74,5 +78,5 @@ def render_wounds_inputs():
         "attacker_stats": attacker_stats,
         "defenders_stats": defenders_toughness,
         "total_number_of_dice_rolls": total_number_of_dice_rolls,
-        "required_value_for_success": to_hit_chart,
+        "required_value_for_success_list": required_value_for_success_list,
     }
