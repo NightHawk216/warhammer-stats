@@ -95,12 +95,12 @@ def run_simulation_logic(inputs, the_type):
             previous_color = st.session_state['last_simulation_results']['color'] if st.session_state['last_simulation_results'] else "gray"
 
             # Display the current simulation results first
-            st.markdown(f"### Current Simulation Results: Number of {the_type}")
+            # st.markdown(f"### Current Simulation Results: Number of {the_type}")
             st.plotly_chart(fig)
 
             # Display the previous simulation results below the current results
             if previous_results:
-                st.markdown(f"### Previous Simulation Results: Number of {the_type}")
+                # st.markdown(f"### Previous Simulation Results: Number of {the_type}")
 
                 # Create a DataFrame for the previous results
                 prev_df = pd.DataFrame({f'Number of {the_type}': previous_results})

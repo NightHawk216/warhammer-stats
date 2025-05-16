@@ -1,55 +1,15 @@
-# poetry run streamlit run app.py
-
 import streamlit as st
-from components.inputs_hits import render_hit_inputs
-from components.inputs_wounds import render_wounds_inputs
-from components.inputs_combat import render_combat_inputs
-from components.outputs import render_outputs
-from components.simulation import run_simulation_logic
 
-import extra_streamlit_components as stx
+pages = {
+    "warhammer-tow-roll-simulator": [
+        st.Page("page_1.py", title="Main"),
+        st.Page("page_2.py", title="ChangeLog"),
+    ],
+    # "Resources": [
+    #     st.Page("learn.py", title="Learn about us"),
+    #     st.Page("trial.py", title="Try it out"),
+    # ],
+}
 
-st.title("Warhammer Simulation Tool")
-st.markdown("#### Select one of the following options")
-chosen_id = stx.tab_bar(data=[
-    stx.TabBarItemData(id="tab1", title="Hits", description="Calculate hits"),
-    stx.TabBarItemData(id="tab2", title="Wounds", description="Calculate wounds"),
-    stx.TabBarItemData(id="tab3", title="Hits and Wounds", description="Simulate combat"),
-])
-
-placeholder = st.container()
-
-if chosen_id == "tab1":
-    st.header("Hits")
-
-    # Render inputs
-    inputs = render_hit_inputs()
-    the_type = "Hits"
-
-elif chosen_id == "tab2":
-    st.header("Wounds")
-
-    # Render inputs
-    inputs = render_wounds_inputs()
-    the_type = "Wounds"
-
-elif chosen_id == "tab3":
-    st.header("Combat")
-
-    # Render inputs
-    inputs = render_combat_inputs()
-    the_type = "Combat"
-
-else:
-    inputs = {'run_simulation': False, 'show_dice_rolls': False, 'attacker_stats': [], 'defenders_stats': [], 'required_value_for_success': 0, 'required_value_for_success_list': [], 'required_to_hit_list': [], 'required_wound_list': []}
-    the_type = None
-
-
-# Run simulation logic
-if inputs['run_simulation']:
-    results = run_simulation_logic(inputs, the_type)
-    # plot_results(results)
-else:
-    print(inputs)
-    print(the_type)
-    render_outputs(inputs, the_type)
+pg = st.navigation(pages)
+pg.run()
