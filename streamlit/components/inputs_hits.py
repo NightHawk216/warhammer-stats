@@ -1,16 +1,6 @@
 import streamlit as st
 
-def warhammer_to_hit_chart(attackers_weapon_skill, defenders_weapon_skill):
-    value = ""
-    if attackers_weapon_skill >= defenders_weapon_skill * 2 + 1:
-        value = '2+'
-    elif attackers_weapon_skill > defenders_weapon_skill:
-        value = '3+'
-    elif defenders_weapon_skill >= attackers_weapon_skill * 2 + 1:
-        value = '5+'
-    else:
-        value = '4+'
-    return value
+from utils import warhammer_to_hit_chart
 
 def render_hit_inputs():
     show_dice_rolls = st.checkbox("Show Dice Rolls", value=True, key="show_dice_rolls_hits")

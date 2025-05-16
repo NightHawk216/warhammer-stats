@@ -1,10 +1,24 @@
 """Utility functions."""
 
 import random
+from typing import List, Tuple
 
-# from profiles.warhammer_first import WarhammerUnit
+def warhammer_to_hit_chart(attackers_weapon_skill: int, defenders_weapon_skill: int) -> str:
+    """
+    Determines the required roll to hit based on the attacker's and defender's weapon skills.
 
-def warhammer_to_hit_chart(attackers_weapon_skill, defenders_weapon_skill):
+    Parameters
+    ----------
+    attackers_weapon_skill : int
+        The weapon skill of the attacker.
+    defenders_weapon_skill : int
+        The weapon skill of the defender.
+
+    Returns
+    -------
+    str
+        The required roll to hit (e.g., '2+', '3+').
+    """
     value = ""
     if attackers_weapon_skill >= defenders_weapon_skill * 2 + 1:
         value = '2+'
@@ -16,7 +30,26 @@ def warhammer_to_hit_chart(attackers_weapon_skill, defenders_weapon_skill):
         value = '4+'
     return value
 
-def calc_hit(attackers_weapon_skill, defenders_weapon_skill, required_roll=-1, log=False):
+def calc_hit(attackers_weapon_skill: int, defenders_weapon_skill: int, required_roll: int = -1, log: bool = False) -> Tuple[str, int]:
+    """
+    Simulates a single attack roll to determine if it hits.
+
+    Parameters
+    ----------
+    attackers_weapon_skill : int
+        The weapon skill of the attacker.
+    defenders_weapon_skill : int
+        The weapon skill of the defender.
+    required_roll : int, optional
+        The required roll to hit (default is -1, which calculates it automatically).
+    log : bool, optional
+        Whether to log the details of the roll (default is False).
+
+    Returns
+    -------
+    tuple
+        A tuple containing the outcome ('Hit' or 'Miss') and the roll value.
+    """
     # Calculate the required roll to hit
     if required_roll == -1:
         required_roll = warhammer_to_hit_chart(attackers_weapon_skill, defenders_weapon_skill)
@@ -40,7 +73,28 @@ def calc_hit(attackers_weapon_skill, defenders_weapon_skill, required_roll=-1, l
         outcome = "Miss"
     return outcome, roll
 
-def multiple_hits(attackers_weapon_skill, defenders_weapon_skill, num_attacks, show_results=True, log=False):
+def multiple_hits(attackers_weapon_skill: int, defenders_weapon_skill: int, num_attacks: int, show_results: bool = True, log: bool = False) -> Tuple[int, List[int]]:
+    """
+    Simulates multiple attack rolls to determine the number of successful hits.
+
+    Parameters
+    ----------
+    attackers_weapon_skill : int
+        The weapon skill of the attacker.
+    defenders_weapon_skill : int
+        The weapon skill of the defender.
+    num_attacks : int
+        The number of attacks to simulate.
+    show_results : bool, optional
+        Whether to display the results (default is True).
+    log : bool, optional
+        Whether to log the details of the rolls (default is False).
+
+    Returns
+    -------
+    tuple
+        A tuple containing the number of successful hits and a list of roll values.
+    """
     successful_hits = 0
     required_roll = warhammer_to_hit_chart(attackers_weapon_skill, defenders_weapon_skill)
 
@@ -67,7 +121,24 @@ def multiple_hits(attackers_weapon_skill, defenders_weapon_skill, num_attacks, s
 
     return successful_hits, roll_list 
 
-def multiple_wounds(attacker_strength, defender_toughness, num_attacks):
+def multiple_wounds(attacker_strength: int, defender_toughness: int, num_attacks: int) -> Tuple[int, List[int]]:
+    """
+    Simulates multiple wound rolls to determine the number of successful wounds.
+
+    Parameters
+    ----------
+    attacker_strength : int
+        The strength of the attacker.
+    defender_toughness : int
+        The toughness of the defender.
+    num_attacks : int
+        The number of attacks to simulate.
+
+    Returns
+    -------
+    tuple
+        A tuple containing the number of successful wounds and a list of roll values.
+    """
     successful_hits = 0
     required_roll = warhammer_to_wound_chart(attacker_strength, defender_toughness)
     print(f"Attacker's strength: {attacker_strength}")
@@ -89,7 +160,26 @@ def multiple_wounds(attacker_strength, defender_toughness, num_attacks):
 
     return successful_hits, roll_list
 
-def calc_wound(attacker_strength, defender_toughness, required_roll=-1, log=False):
+def calc_wound(attacker_strength: int, defender_toughness: int, required_roll: int = -1, log: bool = False) -> Tuple[str, int]:
+    """
+    Simulates a single wound roll to determine if it wounds.
+
+    Parameters
+    ----------
+    attacker_strength : int
+        The strength of the attacker.
+    defender_toughness : int
+        The toughness of the defender.
+    required_roll : int, optional
+        The required roll to wound (default is -1, which calculates it automatically).
+    log : bool, optional
+        Whether to log the details of the roll (default is False).
+
+    Returns
+    -------
+    tuple
+        A tuple containing the outcome ('Wounded' or 'Does not wound') and the roll value.
+    """
     # Calculate the required roll to wound
     if required_roll == -1:
         required_roll = warhammer_to_wound_chart(attacker_strength, defender_toughness)
@@ -113,7 +203,22 @@ def calc_wound(attacker_strength, defender_toughness, required_roll=-1, log=Fals
         value = "Does not wound"
     return value, roll
 
-def warhammer_to_wound_chart(attacker_strength, defender_toughness):
+def warhammer_to_wound_chart(attacker_strength: int, defender_toughness: int) -> str:
+    """
+    Determines the required roll to wound based on the attacker's strength and defender's toughness.
+
+    Parameters
+    ----------
+    attacker_strength : int
+        The strength of the attacker.
+    defender_toughness : int
+        The toughness of the defender.
+
+    Returns
+    -------
+    str
+        The required roll to wound (e.g., '2+', '3+').
+    """
     difference = attacker_strength - defender_toughness
     value = ""
     if difference == -1:
@@ -129,6 +234,69 @@ def warhammer_to_wound_chart(attacker_strength, defender_toughness):
     else:
         value = 'Impossible'
     return value
+
+def warhammer_to_wound_chart(attacker_strength: int, defender_toughness: int) -> str:
+    """
+    Determines the required roll to wound based on the attacker's strength and defender's toughness.
+
+    Parameters
+    ----------
+    attacker_strength : int
+        The strength of the attacker.
+    defender_toughness : int
+        The toughness of the defender.
+
+    Returns
+    -------
+    str
+        The required roll to wound (e.g., '2+', '3+').
+    """
+    difference = attacker_strength - defender_toughness
+    value = ""
+    if difference == -1:
+        value = '5+'
+    elif difference == 0:
+        value = '4+'
+    elif difference == 1:
+        value = '3+'
+    elif difference >= 2:
+        value = '2+'
+    elif difference <= -2 and difference >= -5:
+        value = '6+'
+    else:
+        value = 'Impossible'
+    return value
+
+def warhammer_to_hit_chart(attackers_weapon_skill: int, defenders_weapon_skill: int) -> str:
+    """
+    Determines the required roll to hit based on the attacker's and defender's weapon skills.
+
+    Parameters
+    ----------
+    attackers_weapon_skill : int
+        The weapon skill of the attacker.
+    defenders_weapon_skill : int
+        The weapon skill of the defender.
+
+    Returns
+    -------
+    str
+        The required roll to hit (e.g., '2+', '3+').
+    """
+    value = ""
+    if attackers_weapon_skill >= defenders_weapon_skill * 2 + 1:
+        value = '2+'
+    elif attackers_weapon_skill > defenders_weapon_skill:
+        value = '3+'
+    elif defenders_weapon_skill >= attackers_weapon_skill * 2 + 1:
+        value = '5+'
+    else:
+        value = '4+'
+    return value
+
+# from profiles.warhammer_first import WarhammerUnit
+
+
 
 # def warhammer_to_wound_chart(attacker_strength, defender_toughness):
 #     difference = attacker_strength - defender_toughness
