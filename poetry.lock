@@ -305,6 +305,21 @@ docs = ["ipython", "matplotlib", "numpydoc", "sphinx"]
 tests = ["pytest", "pytest-cov", "pytest-xdist"]
 
 [[package]]
+name = "extra-streamlit-components"
+version = "0.1.80"
+description = "An all-in-one place, to find complex or just natively unavailable components on streamlit."
+optional = false
+python-versions = ">=3.6"
+groups = ["main"]
+files = [
+    {file = "extra_streamlit_components-0.1.80-py3-none-any.whl", hash = "sha256:7a8c151da5dcd1f1f97b6c29caa812a1d77928d20fc4bf42a3a4fd788274dd9e"},
+    {file = "extra_streamlit_components-0.1.80.tar.gz", hash = "sha256:87d6c38e07381501d8882796adef17d1c1d4e3a79615864d95c1163d2bc136f6"},
+]
+
+[package.dependencies]
+streamlit = ">=1.40.1"
+
+[[package]]
 name = "fonttools"
 version = "4.58.0"
 description = "Tools to manipulate font files"
@@ -1510,4 +1525,4 @@ watchmedo = ["PyYAML (>=3.10)"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.10"
-content-hash = "a6d55922cf0598a641f86dff207a611b9d959746cbd80674da46aec96cc9942c"
+content-hash = "3f4a4fe44a521b4be6a4265aba531bd990c6a7ef72be9ee13c367e2fc87aa3ec"

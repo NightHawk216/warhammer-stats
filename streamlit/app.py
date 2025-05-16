@@ -1,19 +1,55 @@
 # poetry run streamlit run app.py
 
 import streamlit as st
-from components.inputs import render_inputs
+from components.inputs_hits import render_hit_inputs
+from components.inputs_wounds import render_wounds_inputs
+from components.inputs_combat import render_combat_inputs
 from components.outputs import render_outputs
 from components.simulation import run_simulation_logic
 
-# Streamlit app title
-st.title("Warhammer To-Hit Chart")
+import extra_streamlit_components as stx
 
-# Render inputs
-inputs = render_inputs()
+st.title("Warhammer Simulation Tool")
+st.markdown("#### Select one of the following options")
+chosen_id = stx.tab_bar(data=[
+    stx.TabBarItemData(id="tab1", title="Hits", description="Calculate hits"),
+    stx.TabBarItemData(id="tab2", title="Wounds", description="Calculate wounds"),
+    stx.TabBarItemData(id="tab3", title="Hits and Wounds", description="Simulate combat"),
+])
+
+placeholder = st.container()
+
+if chosen_id == "tab1":
+    st.header("Hits")
+
+    # Render inputs
+    inputs = render_hit_inputs()
+    the_type = "Hits"
+
+elif chosen_id == "tab2":
+    st.header("Wounds")
+
+    # Render inputs
+    inputs = render_wounds_inputs()
+    the_type = "Wounds"
+
+elif chosen_id == "tab3":
+    st.header("Combat")
+
+    # Render inputs
+    inputs = render_combat_inputs()
+    the_type = "Combat"
+
+else:
+    inputs = {'run_simulation': False, 'show_dice_rolls': False, 'attacker_stats': [], 'defenders_stats': [], 'required_value_for_success': 0, 'required_value_for_success_list': [], 'required_to_hit_list': [], 'required_wound_list': []}
+    the_type = None
+
 
 # Run simulation logic
 if inputs['run_simulation']:
-    results = run_simulation_logic(inputs)
+    results = run_simulation_logic(inputs, the_type)
     # plot_results(results)
 else:
-    render_outputs(inputs)
+    print(inputs)
+    print(the_type)
+    render_outputs(inputs, the_type)
