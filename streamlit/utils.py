@@ -65,7 +65,70 @@ def multiple_hits(attackers_weapon_skill, defenders_weapon_skill, num_attacks, s
         print(f"Number of successful hits: {successful_hits}\n")
     # print(f"Hit percentage: {hit_percentage}%")
 
-    return successful_hits, roll_list  
+    return successful_hits, roll_list 
+
+def multiple_wounds(attacker_strength, defender_toughness, num_attacks):
+    successful_hits = 0
+    required_roll = warhammer_to_wound_chart(attacker_strength, defender_toughness)
+    print(f"Attacker's strength: {attacker_strength}")
+    print(f"Defender's toughness: {defender_toughness}")
+    print(f"Required to wound: {required_roll}")
+
+    roll_list = []
+
+    for _ in range(num_attacks):
+        result, dice_value = calc_wound(attacker_strength, defender_toughness, required_roll)
+        roll_list.append(dice_value)
+        if result == "Wounded":
+            successful_hits += 1
+
+    hit_percentage = (successful_hits / num_attacks) * 100
+
+    print(f"Number of successful wounds: {successful_hits}\n")
+    # print(f"Wound percentage: {hit_percentage}%")
+
+    return successful_hits, roll_list
+
+def calc_wound(attacker_strength, defender_toughness, required_roll=-1, log=False):
+    # Calculate the required roll to wound
+    if required_roll == -1:
+        required_roll = warhammer_to_wound_chart(attacker_strength, defender_toughness)
+    required_roll_value = int(required_roll[:-1])  # Remove the '+' and convert to int
+
+    # Roll a D6
+    roll = random.randint(1, 6)
+
+    # Print out the details
+    if log:
+        print(f"Attacker's strength: {attacker_strength}")
+        print(f"Defender's toughness: {defender_toughness}")
+        print(f"Required to wound: {required_roll}")
+        print(f"Rolled: {roll}")
+
+    # Check if the roll is successful
+    values = ""
+    if roll >= required_roll_value:
+        value = "Wounded"
+    else:
+        value = "Does not wound"
+    return value, roll
+
+def warhammer_to_wound_chart(attacker_strength, defender_toughness):
+    difference = attacker_strength - defender_toughness
+    value = ""
+    if difference == -1:
+        value = '5+'
+    elif difference == 0:
+        value = '4+'
+    elif difference == 1:
+        value = '3+'
+    elif difference >= 2:
+        value = '2+'
+    elif difference <= -2 and difference >= -5:
+        value = '6+'
+    else:
+        value = 'Impossible'
+    return value
 
 # def warhammer_to_wound_chart(attacker_strength, defender_toughness):
 #     difference = attacker_strength - defender_toughness
