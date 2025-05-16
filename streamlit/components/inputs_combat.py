@@ -1,33 +1,6 @@
 import streamlit as st
 
-def warhammer_to_wound_chart(attacker_strength, defender_toughness):
-    difference = attacker_strength - defender_toughness
-    value = ""
-    if difference == -1:
-        value = '5+'
-    elif difference == 0:
-        value = '4+'
-    elif difference == 1:
-        value = '3+'
-    elif difference >= 2:
-        value = '2+'
-    elif difference <= -2 and difference >= -5:
-        value = '6+'
-    else:
-        value = 'Impossible'
-    return value
-
-def warhammer_to_hit_chart(attackers_weapon_skill, defenders_weapon_skill):
-    value = ""
-    if attackers_weapon_skill >= defenders_weapon_skill * 2 + 1:
-        value = '2+'
-    elif attackers_weapon_skill > defenders_weapon_skill:
-        value = '3+'
-    elif defenders_weapon_skill >= attackers_weapon_skill * 2 + 1:
-        value = '5+'
-    else:
-        value = '4+'
-    return value
+from utils import warhammer_to_hit_chart,  warhammer_to_wound_chart
 
 def render_combat_inputs():
     show_dice_rolls = st.checkbox("Show Dice Rolls", value=True, key="show_dice_rolls_combat")
@@ -110,9 +83,9 @@ def render_combat_inputs():
 
 
     st.markdown("### Wound Value Needed")
-    st.markdown(f"**Main Attacker:**     {attacker_strength} vs {defenders_toughness} :{wound_success}")
+    st.markdown(f"**Main Attacker:**     {attacker_strength} vs {defenders_toughness} : {wound_success}")
     if second_strength > 0:
-        st.markdown(f"**Second Attacker:** {second_strength} vs {defenders_toughness} :{second_wound_success}")
+        st.markdown(f"**Second Attacker:** {second_strength} vs {defenders_toughness} : {second_wound_success}")
 
     col1, col2 = st.columns(2)
 
