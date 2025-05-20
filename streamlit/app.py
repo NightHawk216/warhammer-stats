@@ -2,7 +2,7 @@ import streamlit as st
 
 pages = {
     "warhammer-tow-roll-simulator": [
-        st.Page("page_1.py", title="Main"),
+        st.Page("main.py", title="Main"),
         # st.Page("page_2.py", title="ChangeLog"),
     ],
     # "Resources": [
