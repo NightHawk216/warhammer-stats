@@ -73,7 +73,7 @@ def calc_hit(attackers_weapon_skill: int, defenders_weapon_skill: int, required_
         outcome = "Miss"
     return outcome, roll
 
-def multiple_hits(attackers_weapon_skill: int, defenders_weapon_skill: int, num_attacks: int, show_results: bool = True, log: bool = False) -> Tuple[int, List[int]]:
+def multiple_hits(attackers_weapon_skill: int, defenders_weapon_skill: int, num_attacks: int, show_results: bool = True, reroll_criteria: dict={}, log: bool = False) -> Tuple[int, List[int]]:
     """
     Simulates multiple attack rolls to determine the number of successful hits.
 
@@ -87,13 +87,19 @@ def multiple_hits(attackers_weapon_skill: int, defenders_weapon_skill: int, num_
         The number of attacks to simulate.
     show_results : bool, optional
         Whether to display the results (default is True).
+    reroll_criteria : dict, optional
+        A dictionary containing criteria for rerolls (default is empty).
     log : bool, optional
         Whether to log the details of the rolls (default is False).
 
     Returns
     -------
     tuple
-        A tuple containing the number of successful hits and a list of roll values.
+        A tuple containing 
+         - the number of successful hits
+         - a sorted list of all roll values
+         - a sorted list of successful roll values
+         - a sorted list of failed roll values
     """
     successful_hits = 0
     required_roll = warhammer_to_hit_chart(attackers_weapon_skill, defenders_weapon_skill)
@@ -105,23 +111,53 @@ def multiple_hits(attackers_weapon_skill: int, defenders_weapon_skill: int, num_
         print(f"Required to hit: {required_roll}")
 
     roll_list = []
+    success_list = []
+    fail_list = []
 
     for _ in range(num_attacks):
         result, dice_value = calc_hit(attackers_weapon_skill, defenders_weapon_skill, required_roll)
-        roll_list.append(dice_value)
-        if result == "Hit":
+        die_roll = {
+            'first_roll': dice_value,
+            'result': result,
+            'reroll': reroll_criteria,
+            'second_roll': None,
+            'second_result': None,
+            'reroll_type': None,
+        }
+        # provide logic here to determine if reroll is needed
+        if reroll_criteria['reroll_1s'] and result == "Miss" and dice_value == 1:
+            result_2, dice_value_2 = calc_hit(attackers_weapon_skill, defenders_weapon_skill, required_roll)
+            die_roll.update({
+                'second_roll': dice_value_2,
+                'second_result': result_2,
+                'reroll_type': 'reroll_1s',
+            })
+        # provide logic here to determine if reroll is needed
+        elif reroll_criteria['reroll_fail_hits'] and result == "Miss":
+            result_2, dice_value_2 = calc_hit(attackers_weapon_skill, defenders_weapon_skill, required_roll)
+            die_roll.update({
+                'second_roll': dice_value_2,
+                'second_result': result_2,
+                'reroll_type': 'reroll_fail_hits',
+            })
+        elif reroll_criteria['reroll_suc_hits'] and result == "Hit":
+            result_2, dice_value_2 = calc_hit(attackers_weapon_skill, defenders_weapon_skill, required_roll)
+            die_roll.update({
+                'second_roll': dice_value_2,
+                'second_result': result_2,
+                'reroll_type': 'reroll_suc_hits',
+            })
+        roll_list.append(die_roll)
+        if die_roll['result'] == "Hit" and not reroll_criteria['reroll_suc_hits']:
             successful_hits += 1
+            success_list.append(die_roll['first_roll'])
+        elif die_roll['second_result'] == "Hit":
+            successful_hits += 1
+            success_list.append(die_roll['second_roll'])
 
-    hit_percentage = (successful_hits / num_attacks) * 100
-    
-    # Print out the details
-    if log:
-        print(f"Number of successful hits: {successful_hits}\n")
-    # print(f"Hit percentage: {hit_percentage}%")
+    return successful_hits, roll_list
 
-    return successful_hits, roll_list 
-
-def multiple_wounds(attacker_strength: int, defender_toughness: int, num_attacks: int) -> Tuple[int, List[int]]:
+def multiple_wounds(attacker_strength: int, defender_toughness: int, num_attacks: int, reroll_criteria: dict={}, ) -> Tuple[int, List[int]]:
     """
     Simulates multiple wound rolls to determine the number of successful wounds.
 
@@ -133,6 +169,8 @@ def multiple_wounds(attacker_strength: int, defender_toughness: int, num_attacks
         The toughness of the defender.
     num_attacks : int
         The number of attacks to simulate.
+    reroll_criteria : dict, optional
+        A dictionary containing criteria for rerolls (default is empty).
 
     Returns
     -------
@@ -146,17 +184,50 @@ def multiple_wounds(attacker_strength: int, defender_toughness: int, num_attacks
     print(f"Required to wound: {required_roll}")
 
     roll_list = []
+    success_list = []
+    fail_list = []
 
     for _ in range(num_attacks):
+        print("reroll_criteria", reroll_criteria)
         result, dice_value = calc_wound(attacker_strength, defender_toughness, required_roll)
-        roll_list.append(dice_value)
+        print(result)
+        die_roll = {
+            'first_roll': dice_value,
+            'result': result,
+            'reroll': reroll_criteria,
+            'second_roll': None,
+            'second_result': None,
+            'reroll_type': None,
+        }
+        # provide logic here to determine if reroll is needed
+        if reroll_criteria['reroll_1s'] and result == "Does not wound" and dice_value == 1:
+            result_2, dice_value_2 = calc_hit(attacker_strength, defender_toughness, required_roll)
+            die_roll.update({
+                'second_roll': dice_value_2,
+                'second_result': result_2,
+                'reroll_type': 'reroll_1s',
+            })
+        # provide logic here to determine if reroll is needed
+        elif reroll_criteria['reroll_fail_wounds'] and result == "Does not wound":
+            result_2, dice_value_2 = calc_hit(attacker_strength, defender_toughness, required_roll)
+            die_roll.update({
+                'second_roll': dice_value_2,
+                'second_result': result_2,
+                'reroll_type': 'reroll_fail_wounds',
+            })
+        elif reroll_criteria['reroll_suc_wounds'] and result == "Wounded":
+            result_2, dice_value_2 = calc_hit(attacker_strength, defender_toughness, required_roll)
+            die_roll.update({
+                'second_roll': dice_value_2,
+                'second_result': result_2,
+                'reroll_type': 'reroll_suc_wounds',
+            })
+        roll_list.append(die_roll)
         if result == "Wounded":
             successful_hits += 1
-
-    hit_percentage = (successful_hits / num_attacks) * 100
-
-    print(f"Number of successful wounds: {successful_hits}\n")
-    # print(f"Wound percentage: {hit_percentage}%")
+            success_list.append(dice_value)
+        else:
+            fail_list.append(dice_value)
 
     return successful_hits, roll_list
 

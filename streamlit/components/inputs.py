@@ -168,6 +168,40 @@ def render_inputs(the_type: str) -> dict:
     # run_simulation = st.checkbox("Run Simulation", value=False, key="run_simulation_combat")
     run_simulation = False
 
+    st.markdown(f"##### Special Rules")
+    hit_rerolls = {}
+    wound_rerolls = {}
+
+    if the_type in ["Combat", "Hits"]:
+    
+        reroll_option = st.radio(
+            "Select Hit Reroll Option",
+            options=["None", "Reroll 1s", "Reroll Successful Hits", "Reroll Failed Hits"],
+            index=0,  # Default to "None"
+            key="hit reroll option"
+        )
+
+        hit_rerolls = {
+            "reroll_1s": reroll_option == "Reroll 1s",
+            "reroll_suc_hits": reroll_option == "Reroll Successful Hits",
+            "reroll_fail_hits": reroll_option == "Reroll Failed Hits"
+        }
+
+    if the_type in ["Combat", "Wounds"]:
+    
+        wound_reroll_option = st.radio(
+            "Select Wound Reroll Option",
+            options=["None", "Reroll 1s", "Reroll Successful Wounds", "Reroll Failed Wounds"],
+            index=0,  # Default to "None"
+            key="wound reroll option"
+        )
+
+        wound_rerolls = {
+            "reroll_1s": wound_reroll_option == "Reroll 1s",
+            "reroll_suc_wounds": wound_reroll_option == "Reroll Successful Wounds",
+            "reroll_fail_wounds": wound_reroll_option == "Reroll Failed Wounds"
+        }
+
     if the_type == "Combat":
         attacker_stats = get_combat_stats(show_second_attacker)
     if the_type == "Hits":
@@ -240,4 +274,6 @@ def render_inputs(the_type: str) -> dict:
         "required_wound_list": required_wound_list,
         "the_type": the_type,
         "num_attackers": num_attackers,
+        "hit_rerolls": hit_rerolls,
+        "wound_rerolls": wound_rerolls,
     }

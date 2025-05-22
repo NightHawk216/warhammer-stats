@@ -35,7 +35,7 @@ elif chosen_id == "tab3":
     inputs = render_inputs("Wounds")
 
 else:
-    inputs = {'run_simulation': False, 'show_dice_rolls': False, 'attacker_stats': [], 'defenders_stats': [], 'required_value_for_success': 0, 'required_value_for_success_list': [], 'required_to_hit_list': [], 'required_wound_list': [], 'the_type': None, 'num_attackers': 0}
+    inputs = {'run_simulation': False, 'show_dice_rolls': False, 'attacker_stats': [], 'defenders_stats': [], 'required_value_for_success': 0, 'required_value_for_success_list': [], 'required_to_hit_list': [], 'required_wound_list': [], 'the_type': None, 'num_attackers': 0, 'rerolls': {}, 'hit_rerolls': {}, 'wound_rerolls': {}}
     the_type = None
 
 
