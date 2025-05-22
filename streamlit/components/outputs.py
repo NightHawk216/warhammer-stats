@@ -128,10 +128,10 @@ def render_outputs(inputs: dict) -> None:
                         join_char = ""
 
                     hits_row = f"""
-                        <td style='border: 1px solid black; padding: 8px;'>Hits</td>
-                        <td style='border: 1px solid black; padding: 8px;'>{required_to_hit_value}+</td>
-                        <td style='border: 1px solid black; padding: 8px;'>{', '.join(highlighted_first_rolls)} {join_char} {', '.join(highlighted_second_rolls)}</td>
-                        <td style='border: 1px solid black; padding: 8px;'>{num_hits_success}</td>
+                        <td style='border: 1px solid black; padding: 8px; text-align: center;'>Hits</td>
+                        <td style='border: 1px solid black; padding: 8px; text-align: center;'>{required_to_hit_value}+</td>
+                        <td style='border: 1px solid black; padding: 8px; text-align: center;'>{', '.join(highlighted_first_rolls)} {join_char} {', '.join(highlighted_second_rolls)}</td>
+                        <td style='border: 1px solid black; padding: 8px; text-align: center;'>{num_hits_success}</td>
                     """
 
                 ##########################################################################
@@ -174,20 +174,20 @@ def render_outputs(inputs: dict) -> None:
                         join_char = ""
 
                     wounds_row = f"""
-                        <td style='border: 1px solid black; padding: 8px;'>Wounds</td>
-                        <td style='border: 1px solid black; padding: 8px;'>{required_to_wound_value}+</td>
-                        <td style='border: 1px solid black; padding: 8px;'>{', '.join(highlighted_first_rolls)} {join_char} {', '.join(highlighted_second_rolls)}</td>
-                        <td style='border: 1px solid black; padding: 8px;'>{num_hits_success}</td>
+                        <td style='border: 1px solid black; padding: 8px; text-align: center;'>Wounds</td>
+                        <td style='border: 1px solid black; padding: 8px; text-align: center;'>{required_to_wound_value}+</td>
+                        <td style='border: 1px solid black; padding: 8px; text-align: center;'>{', '.join(highlighted_first_rolls)} {join_char} {', '.join(highlighted_second_rolls)}</td>
+                        <td style='border: 1px solid black; padding: 8px; text-align: center;'>{num_hits_success}</td>
                     """
 
             
                 html = f"""
                 <table style='width:100%; border: 1px solid black; border-collapse: collapse;'>
                     <tr style='border: 1px solid black;'>
-                        <th style='border: 1px solid black; padding: 8px;'>Type</th>
-                        <th style='border: 1px solid black; padding: 8px;'>Required</th>
-                        <th style='border: 1px solid black; padding: 8px;'>Dice Rolls</th>
-                        <th style='border: 1px solid black; padding: 8px;'>Count of Successes</th>
+                        <th style='border: 1px solid black; padding: 8px; text-align: center;'>Type</th>
+                        <th style='border: 1px solid black; padding: 8px; text-align: center;'>Required</th>
+                        <th style='border: 1px solid black; padding: 8px; text-align: center;'>Dice Rolls</th>
+                        <th style='border: 1px solid black; padding: 8px; text-align: center;'>Count of Successes</th>
                     </tr>
                     <tr>
                         {hits_row}
