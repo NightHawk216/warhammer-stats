@@ -2,3 +2,7 @@ matplotlib>=3.10.3
 streamlit>=1.45.0
 plotly>=6.0.1
 extra_streamlit_components
+
+# project health
+ruff
+pydocstyle
