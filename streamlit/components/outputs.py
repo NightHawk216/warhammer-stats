@@ -238,6 +238,7 @@ def render_outputs(inputs: dict) -> None:
 
                     # Process second_rolls
                     for entry in total_wound_roll_list[idx]:
+                        print(entry["reroll"], entry["second_roll"], entry["second_result"])
                         if entry["reroll"] and entry["second_roll"] is not None:
                             if entry["second_result"] == "Wounded":
                                 second_rolls.append(
