@@ -1,3 +1,5 @@
+"""App.py file."""
+
 import streamlit as st
 
 pages = {
