@@ -275,13 +275,43 @@ def render_outputs(inputs: dict) -> None:
                         <td style='border: 1px solid black; padding: 8px; text-align: center;'>{num_hits_success}</td>
                     """
 
+                # the html below doesn't really work, but it does enable a white background for dark mode
+
                 html = f"""
-                <table style='width:100%; border: 1px solid black; border-collapse: collapse;'>
-                    <tr style='border: 1px solid black;'>
-                        <th style='border: 1px solid black; padding: 8px; text-align: center;'>Type</th>
-                        <th style='border: 1px solid black; padding: 8px; text-align: center;'>Required</th>
-                        <th style='border: 1px solid black; padding: 8px; text-align: center;'>Dice Rolls</th>
-                        <th style='border: 1px solid black; padding: 8px; text-align: center;'>Count of Successes</th>
+                <style>
+                    .custom-table {{
+                        width: 100%;
+                        border: 1px solid black;
+                        border-collapse: collapse;
+                        background-color: white;
+                        color: black;
+                    }}
+
+                    .custom-table th, .custom-table td {{
+                        border: 1px solid black;
+                        padding: 8px;
+                        text-align: center;
+                    }}
+
+                    @media (prefers-color-scheme: dark) {{
+                        .custom-table {{
+                            background-color: #111;
+                            color: white;
+                            border: 1px solid white;
+                        }}
+
+                        .custom-table th, .custom-table td {{
+                            border: 1px solid white;
+                        }}
+                    }}
+                </style>
+
+                <table class="custom-table">
+                    <tr>
+                        <th>Type</th>
+                        <th>Required</th>
+                        <th>Dice Rolls</th>
+                        <th>Count of Successes</th>
                     </tr>
                     <tr>
                         {hits_row}
