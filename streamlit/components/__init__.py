@@ -1,0 +1,1 @@
+"""Components init file for the Warhammer Stats app."""
