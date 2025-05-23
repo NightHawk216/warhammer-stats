@@ -248,7 +248,7 @@ def multiple_wounds(
             and result == "Does not wound"
             and dice_value == 1
         ):
-            result_2, dice_value_2 = calc_hit(
+            result_2, dice_value_2 = calc_wound(
                 attacker_strength, defender_toughness, required_roll
             )
             die_roll.update(
@@ -260,7 +260,7 @@ def multiple_wounds(
             )
         # provide logic here to determine if reroll is needed
         elif reroll_criteria["reroll_fail_wounds"] and result == "Does not wound":
-            result_2, dice_value_2 = calc_hit(
+            result_2, dice_value_2 = calc_wound(
                 attacker_strength, defender_toughness, required_roll
             )
             die_roll.update(
@@ -271,7 +271,7 @@ def multiple_wounds(
                 }
             )
         elif reroll_criteria["reroll_suc_wounds"] and result == "Wounded":
-            result_2, dice_value_2 = calc_hit(
+            result_2, dice_value_2 = calc_wound(
                 attacker_strength, defender_toughness, required_roll
             )
             die_roll.update(
